@@ -1,0 +1,25 @@
+import 'package:bookly/Features/home/presentation/views/widgets/similar_books_list_view.dart';
+import 'package:bookly/core/utils/styles.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+
+class SimilarBooksSection extends StatelessWidget {
+  const SimilarBooksSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        // text
+        Text(
+          'You can also like',
+          style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600),
+        ),
+        Gap(16),
+        // list 
+        SimilarBooksListView(),
+      ],
+    );
+  }
+}
