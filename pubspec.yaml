@@ -30,6 +30,7 @@ environment:
 dependencies:
   awesome_icons: ^1.1.0
   cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
   flutter:
     sdk: flutter
   gap: ^3.0.1
@@ -70,7 +71,6 @@ flutter:
         - asset: assets/fonts/GT Sectra Fine Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-
 flutter_launcher_icons:
   android: true
   ios: true
