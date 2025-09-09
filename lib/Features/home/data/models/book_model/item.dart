@@ -1,5 +1,4 @@
 import 'package:bookly/Features/home/domain/entites/book_entity.dart';
-import 'package:flutter/widgets.dart';
 
 import 'access_info.dart';
 import 'sale_info.dart';
