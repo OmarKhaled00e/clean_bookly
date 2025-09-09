@@ -5,3 +5,4 @@ const kPrimaryColor = Color(0xff100B20);
 const kTranstionDuration = Duration(milliseconds: 250);
 
 const kGtSectreFine = 'GT Sectra Fine';
+const kFeaturedBox = 'featured_box';
