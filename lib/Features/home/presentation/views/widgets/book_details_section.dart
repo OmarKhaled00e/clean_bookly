@@ -16,7 +16,7 @@ class BookDetailsSection extends StatelessWidget {
         // image
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
-          child: CustomBookImage(),
+          child: CustomBookImage( image: '',),
         ),
         Gap(43),
         // name
