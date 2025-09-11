@@ -8,14 +8,22 @@ part 'newset_books_state.dart';
 class NewsetBooksCubit extends Cubit<NewsetBooksState> {
   NewsetBooksCubit(this.fatchNewsetBooksUseCase) : super(NewsetBooksInitial());
   final FatchNewsetBooksUseCase fatchNewsetBooksUseCase;
-  Future<void> fetchNewsetBook() async {
-    emit(NewsetBooksLoading());
+  Future<void> fetchNewsetBook({int pageNumber = 0}) async {
+    if (pageNumber == 0) {
+      emit(NewsetBooksLoading());
+    } else {
+      emit(NewsetBooksPaginationLoading());
+    }
 
-    var result = await fatchNewsetBooksUseCase.call();
+    var result = await fatchNewsetBooksUseCase.call(pageNumber);
 
     result.fold(
       (failure) {
-        emit(NewsetBooksFailure(failure.errMassage));
+        if (pageNumber == 0) {
+          emit(NewsetBooksFailure(failure.errMassage));
+        } else {
+          emit(NewsetBooksPaginationFailure(failure.errMassage));
+        }
       },
       (books) {
         emit(NewsetBooksSuccess(books));
