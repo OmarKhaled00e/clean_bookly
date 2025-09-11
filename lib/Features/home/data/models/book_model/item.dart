@@ -28,6 +28,7 @@ class Item extends BookEntity {
          authorName: volumeInfo.authors?.first ?? 'No Name',
          price: 0.0,
          rating: volumeInfo.averageRating,
+         count: volumeInfo.ratingsCount ?? 0,
        );
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
