@@ -47,7 +47,7 @@ class BookDetailsSection extends StatelessWidget {
         ),
         Gap(37),
         // double button
-        BookAction(),
+        BookAction(book: books),
       ],
     );
   }

@@ -29,6 +29,7 @@ class Item extends BookEntity {
          price: 0.0,
          rating: volumeInfo.averageRating,
          count: volumeInfo.ratingsCount ?? 0,
+         previewLink: volumeInfo.previewLink!,
        );
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
