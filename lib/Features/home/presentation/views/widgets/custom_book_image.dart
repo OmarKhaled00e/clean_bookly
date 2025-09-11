@@ -4,15 +4,22 @@ import 'package:flutter/material.dart';
 class CustomBookImage extends StatelessWidget {
   const CustomBookImage({super.key, required this.image});
   final String image;
+
   @override
   Widget build(BuildContext context) {
-    return
-      AspectRatio(
-        aspectRatio: 2.6 / 4,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: CachedNetworkImage(imageUrl: image, fit: BoxFit.fill,))
-      
+    return AspectRatio(
+      aspectRatio: 2.6 / 4,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: CachedNetworkImage(
+          imageUrl: image,
+          fit: BoxFit.cover,
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          errorWidget: (context, url, error) =>
+              const Icon(Icons.error, size: 40, color: Colors.grey),
+        ),
+      ),
     );
   }
 }
