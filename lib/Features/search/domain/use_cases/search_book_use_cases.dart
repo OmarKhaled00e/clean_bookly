@@ -9,7 +9,10 @@ class SearchBookUseCases extends UseCases<List<BookEntity>, String> {
 
   SearchBookUseCases(this.searchRepo);
   @override
-  Future<Either<Failure, List<BookEntity>>> call([String? query]) {
-    return searchRepo.searchBooks(query: query ?? '');
+  Future<Either<Failure, List<BookEntity>>> call([
+    String? query,
+    pageNumber = 0,
+  ]) {
+    return searchRepo.searchBooks(query: query ?? '', pageNumber: pageNumber);
   }
 }
