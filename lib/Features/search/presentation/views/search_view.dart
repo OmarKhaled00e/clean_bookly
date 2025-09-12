@@ -1,6 +1,6 @@
 import 'package:bookly/Features/search/data/repos/search_repo_impl.dart';
 import 'package:bookly/Features/search/domain/use_cases/search_book_use_cases.dart';
-import 'package:bookly/Features/search/presentation/manager/search_book_cubit/search_book_cubit.dart';
+import 'package:bookly/Features/search/presentation/manager/cubit/search_book_cubit.dart';
 import 'package:bookly/Features/search/presentation/views/widgets/search_view_body.dart';
 import 'package:bookly/core/utils/function/setup_service_locator.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +14,8 @@ class SearchView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: BlocProvider(
-          create: (context) => SearchBookCubit(
-            SearchBookUseCases(getIt.get<SearchRepoImpl>())
-          ),
+          create: (context) =>
+              SearchBookCubit(SearchBookUseCases(getIt.get<SearchRepoImpl>())),
           child: SearchViewBody(),
         ),
       ),

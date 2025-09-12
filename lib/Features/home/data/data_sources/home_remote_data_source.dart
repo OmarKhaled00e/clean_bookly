@@ -6,23 +6,23 @@ import 'package:bookly/core/utils/function/save_books.dart';
 
 abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0});
-  Future<List<BookEntity>> fetchNewestBooks();
+  Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0});
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   final ApiService apiService;
 
   HomeRemoteDataSourceImpl(this.apiService);
+
   @override
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0}) async {
     var data = await apiService.get(
       endPoint:
-          'volumes?Filtering=free-ebook&q=programming&startindex=${pageNumber * 10}',
+          'volumes?filter=free-ebooks&q=programming&startIndex=${pageNumber * 10}&maxResults=10',
     );
+
     List<BookEntity> books = getBooksList(data);
-
     saveBoxData(books, kFeaturedBox);
-
     return books;
   }
 
@@ -30,8 +30,9 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0}) async {
     var data = await apiService.get(
       endPoint:
-          'volumes?Filtering=free-ebook&Sorting=newest&q=programming&startindex=${pageNumber * 10}',
+          'volumes?filter=free-ebooks&orderBy=newest&q=programming&startIndex=${pageNumber * 10}&maxResults=10',
     );
+
     List<BookEntity> books = getBooksList(data);
     saveBoxData(books, kNewestBox);
     return books;

@@ -1,4 +1,4 @@
-import 'package:bookly/Features/search/presentation/manager/search_book_cubit/search_book_cubit.dart';
+import 'package:bookly/Features/search/presentation/manager/cubit/search_book_cubit.dart';
 import 'package:bookly/Features/search/presentation/views/widgets/custom_search_text_field.dart';
 import 'package:bookly/Features/search/presentation/views/widgets/result_list_view.dart';
 import 'package:bookly/core/utils/styles.dart';

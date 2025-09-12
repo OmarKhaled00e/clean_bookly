@@ -6,28 +6,51 @@ import 'package:meta/meta.dart';
 part 'newset_books_state.dart';
 
 class NewsetBooksCubit extends Cubit<NewsetBooksState> {
-  NewsetBooksCubit(this.fatchNewsetBooksUseCase) : super(NewsetBooksInitial());
+  NewsetBooksCubit(this.fatchNewsetBooksUseCase)
+      : super(NewsetBooksInitial());
+
   final FatchNewsetBooksUseCase fatchNewsetBooksUseCase;
-  Future<void> fetchNewsetBook({int pageNumber = 0}) async {
-    if (pageNumber == 0) {
+
+  final List<BookEntity> _allBooks = [];
+  int _page = 0;
+  bool _hasReachedEnd = false;
+  bool _isLoadingMore = false;
+
+  Future<void> fetchNewsetBooks() async {
+    if (_isLoadingMore || _hasReachedEnd) return;
+
+    if (_page == 0) {
       emit(NewsetBooksLoading());
     } else {
-      emit(NewsetBooksPaginationLoading());
+      emit(NewsetBooksPaginationLoading(List.from(_allBooks)));
     }
 
-    var result = await fatchNewsetBooksUseCase.call(pageNumber);
+    _isLoadingMore = true;
+
+    final result = await fatchNewsetBooksUseCase.call(_page);
 
     result.fold(
       (failure) {
-        if (pageNumber == 0) {
+        if (_page == 0) {
           emit(NewsetBooksFailure(failure.errMassage));
         } else {
-          emit(NewsetBooksPaginationFailure(failure.errMassage));
+          emit(NewsetBooksPaginationFailure(
+              failure.errMassage, List.from(_allBooks)));
         }
       },
       (books) {
-        emit(NewsetBooksSuccess(books));
+        if (books.isEmpty) {
+          _hasReachedEnd = true;
+        } else {
+          _allBooks.addAll(books);
+          _page++;
+        }
+
+        emit(NewsetBooksSuccess(List.from(_allBooks),
+            hasReachedEnd: _hasReachedEnd));
       },
     );
+
+    _isLoadingMore = false;
   }
 }

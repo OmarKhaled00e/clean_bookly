@@ -1,28 +1,29 @@
-part of 'featured_books_cubit.dart';
+import 'package:bookly/Features/home/domain/entites/book_entity.dart';
 
-@immutable
-sealed class FeaturedBooksState {}
+abstract class FeaturedBooksState {}
 
-final class FeaturedBooksInitial extends FeaturedBooksState {}
+class FeaturedBooksInitial extends FeaturedBooksState {}
 
-final class FeaturedBooksLoading extends FeaturedBooksState {}
+class FeaturedBooksLoading extends FeaturedBooksState {}
 
-final class FeaturedBooksPaginationLoading extends FeaturedBooksState {}
-
-final class FeaturedBooksPaginationFailure extends FeaturedBooksState {
-  final String errMessage;
-
-  FeaturedBooksPaginationFailure(this.errMessage);
+class FeaturedBooksPaginationLoading extends FeaturedBooksState {
+  final List<BookEntity> oldBooks;
+  FeaturedBooksPaginationLoading(this.oldBooks);
 }
 
-final class FeaturedBooksSuccess extends FeaturedBooksState {
+class FeaturedBooksSuccess extends FeaturedBooksState {
   final List<BookEntity> books;
-
-  FeaturedBooksSuccess(this.books);
+  final bool hasReachedEnd;
+  FeaturedBooksSuccess(this.books, {this.hasReachedEnd = false});
 }
 
-final class FeaturedBooksFailure extends FeaturedBooksState {
-  final String errMassage;
+class FeaturedBooksFailure extends FeaturedBooksState {
+  final String message;
+  FeaturedBooksFailure(this.message);
+}
 
-  FeaturedBooksFailure(this.errMassage);
+class FeaturedBooksPaginationFailure extends FeaturedBooksState {
+  final String message;
+  final List<BookEntity> oldBooks;
+  FeaturedBooksPaginationFailure(this.message, this.oldBooks);
 }

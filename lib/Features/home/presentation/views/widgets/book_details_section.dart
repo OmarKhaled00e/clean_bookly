@@ -43,7 +43,7 @@ class BookDetailsSection extends StatelessWidget {
         BookRating(
           mainAxisAlignment: MainAxisAlignment.center,
           reating: books.rating ?? 0,
-          count: books.count ?? 0,
+          count: books.count,
         ),
         Gap(37),
         // double button

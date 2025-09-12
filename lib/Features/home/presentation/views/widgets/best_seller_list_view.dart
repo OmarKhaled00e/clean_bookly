@@ -14,8 +14,7 @@ class BestSellerListView extends StatefulWidget {
 
 class _BestSellerListViewState extends State<BestSellerListView> {
   late final ScrollController _scrollController;
-  var nextPage = 1;
-  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -23,31 +22,25 @@ class _BestSellerListViewState extends State<BestSellerListView> {
     _scrollController.addListener(_scrollListener);
   }
 
-  void _scrollListener() async {
-    var currentPosition = _scrollController.position.maxScrollExtent;
-    var maxScrollLength = _scrollController.position.maxScrollExtent;
-    if (currentPosition >= 0.7 * maxScrollLength) {
-      if (!isLoading) {
-        isLoading = true;
-        await BlocProvider.of<NewsetBooksCubit>(
-          context,
-        ).fetchNewsetBook(pageNumber: nextPage++);
-        isLoading = false;
-      }
+  void _scrollListener() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<NewsetBooksCubit>().fetchNewsetBooks();
     }
   }
 
   @override
   void dispose() {
-    super.dispose();
+    _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: _scrollController,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemCount: widget.books.length,
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {

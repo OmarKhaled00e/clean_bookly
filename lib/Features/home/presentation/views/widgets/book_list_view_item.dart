@@ -17,7 +17,7 @@ class BookListViewItem extends StatelessWidget {
     // navigate to book details
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.kBookDetailsView , extra: books);
+        GoRouter.of(context).push(AppRouter.kBookDetailsView, extra: books);
       },
       child: SizedBox(
         height: 125,
@@ -35,7 +35,7 @@ class BookListViewItem extends StatelessWidget {
                     // name book
                     child: Text(
                       books.title,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Styles.textStyle20.copyWith(
                         fontFamily: kGtSectreFine,
@@ -44,7 +44,12 @@ class BookListViewItem extends StatelessWidget {
                   ),
                   Gap(3),
                   // author
-                  Text(books.authorName ?? '', style: Styles.textStyle14),
+                  Text(
+                    books.authorName ?? '',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Styles.textStyle14,
+                  ),
                   Gap(3),
                   Row(
                     children: [
@@ -56,7 +61,10 @@ class BookListViewItem extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      BookRating(reating: books.rating ?? 0.0, count: books.count ?? 0.0),
+                      BookRating(
+                        reating: books.rating ?? 0.0,
+                        count: books.count,
+                      ),
                     ],
                   ),
                 ],

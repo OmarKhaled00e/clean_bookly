@@ -14,7 +14,7 @@ class BookDetailsView extends StatefulWidget {
 class _BookDetailsViewState extends State<BookDetailsView> {
   @override
   void initState() {
-    BlocProvider.of<NewsetBooksCubit>(context).fetchNewsetBook();
+    BlocProvider.of<NewsetBooksCubit>(context).fetchNewsetBooks();
     super.initState();
   }
 
